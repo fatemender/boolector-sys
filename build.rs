@@ -7,6 +7,7 @@ fn main() {
     bindgen::Builder::default()
         .header("include/bindings.h")
         .whitelist_function("^boolector_(.*)$")
+        .whitelist_type("^Btor(.*)$")
         .generate()
         .expect("failed to generate bindings for Boolector")
         .write_to_file(PathBuf::from(env::var("OUT_DIR").unwrap()).join("bindings.rs"))
