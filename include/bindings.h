@@ -1,1 +1,1 @@
-#include <boolector/boolector.h>
+#include <boolector.h>
