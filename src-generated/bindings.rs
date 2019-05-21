@@ -488,27 +488,66 @@ pub const BtorOption_BTOR_OPT_AIGPROP_USE_BANDIT: BtorOption = 67;
 pub const BtorOption_BTOR_OPT_QUANT_SYNTH: BtorOption = 68;
 pub const BtorOption_BTOR_OPT_QUANT_DUAL_SOLVER: BtorOption = 69;
 pub const BtorOption_BTOR_OPT_QUANT_SYNTH_LIMIT: BtorOption = 70;
-pub const BtorOption_BTOR_OPT_QUANT_SYNTH_ITE_COMPLETE: BtorOption = 71;
-pub const BtorOption_BTOR_OPT_QUANT_FIXSYNTH: BtorOption = 72;
-pub const BtorOption_BTOR_OPT_QUANT_SYNTH_QI: BtorOption = 73;
-pub const BtorOption_BTOR_OPT_QUANT_DER: BtorOption = 74;
-pub const BtorOption_BTOR_OPT_QUANT_CER: BtorOption = 75;
-pub const BtorOption_BTOR_OPT_QUANT_MINISCOPE: BtorOption = 76;
-pub const BtorOption_BTOR_OPT_DEFAULT_TO_CADICAL: BtorOption = 77;
-pub const BtorOption_BTOR_OPT_SORT_EXP: BtorOption = 78;
-pub const BtorOption_BTOR_OPT_SORT_AIG: BtorOption = 79;
-pub const BtorOption_BTOR_OPT_SORT_AIGVEC: BtorOption = 80;
-pub const BtorOption_BTOR_OPT_AUTO_CLEANUP_INTERNAL: BtorOption = 81;
-pub const BtorOption_BTOR_OPT_SIMPLIFY_CONSTRAINTS: BtorOption = 82;
-pub const BtorOption_BTOR_OPT_CHK_FAILED_ASSUMPTIONS: BtorOption = 83;
-pub const BtorOption_BTOR_OPT_CHK_MODEL: BtorOption = 84;
-pub const BtorOption_BTOR_OPT_CHK_UNCONSTRAINED: BtorOption = 85;
-pub const BtorOption_BTOR_OPT_PARSE_INTERACTIVE: BtorOption = 86;
-pub const BtorOption_BTOR_OPT_SAT_ENGINE_LGL_FORK: BtorOption = 87;
-pub const BtorOption_BTOR_OPT_INCREMENTAL_RW: BtorOption = 88;
-pub const BtorOption_BTOR_OPT_DECLSORT_BV_WIDTH: BtorOption = 89;
+pub const BtorOption_BTOR_OPT_QUANT_SYNTH_QI: BtorOption = 71;
+pub const BtorOption_BTOR_OPT_QUANT_DER: BtorOption = 72;
+pub const BtorOption_BTOR_OPT_QUANT_CER: BtorOption = 73;
+pub const BtorOption_BTOR_OPT_QUANT_MINISCOPE: BtorOption = 74;
+pub const BtorOption_BTOR_OPT_DEFAULT_TO_CADICAL: BtorOption = 75;
+pub const BtorOption_BTOR_OPT_SORT_EXP: BtorOption = 76;
+pub const BtorOption_BTOR_OPT_SORT_AIG: BtorOption = 77;
+pub const BtorOption_BTOR_OPT_SORT_AIGVEC: BtorOption = 78;
+pub const BtorOption_BTOR_OPT_AUTO_CLEANUP_INTERNAL: BtorOption = 79;
+pub const BtorOption_BTOR_OPT_SIMPLIFY_CONSTRAINTS: BtorOption = 80;
+pub const BtorOption_BTOR_OPT_CHK_FAILED_ASSUMPTIONS: BtorOption = 81;
+pub const BtorOption_BTOR_OPT_CHK_MODEL: BtorOption = 82;
+pub const BtorOption_BTOR_OPT_CHK_UNCONSTRAINED: BtorOption = 83;
+pub const BtorOption_BTOR_OPT_PARSE_INTERACTIVE: BtorOption = 84;
+pub const BtorOption_BTOR_OPT_SAT_ENGINE_LGL_FORK: BtorOption = 85;
+pub const BtorOption_BTOR_OPT_INCREMENTAL_RW: BtorOption = 86;
+pub const BtorOption_BTOR_OPT_DECLSORT_BV_WIDTH: BtorOption = 87;
+pub const BtorOption_BTOR_OPT_QUANT_SYNTH_ITE_COMPLETE: BtorOption = 88;
+pub const BtorOption_BTOR_OPT_QUANT_FIXSYNTH: BtorOption = 89;
 pub const BtorOption_BTOR_OPT_NUM_OPTS: BtorOption = 90;
 pub type BtorOption = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct BtorAbortCallback {
+    pub abort_fun: ::std::option::Option<unsafe extern "C" fn(msg: *const ::std::os::raw::c_char)>,
+    pub cb_fun: *mut ::std::os::raw::c_void,
+}
+#[test]
+fn bindgen_test_layout_BtorAbortCallback() {
+    assert_eq!(
+        ::std::mem::size_of::<BtorAbortCallback>(),
+        16usize,
+        concat!("Size of: ", stringify!(BtorAbortCallback))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<BtorAbortCallback>(),
+        8usize,
+        concat!("Alignment of ", stringify!(BtorAbortCallback))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<BtorAbortCallback>())).abort_fun as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BtorAbortCallback),
+            "::",
+            stringify!(abort_fun)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<BtorAbortCallback>())).cb_fun as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BtorAbortCallback),
+            "::",
+            stringify!(cb_fun)
+        )
+    );
+}
 extern "C" {
     pub fn boolector_new() -> *mut Btor;
 }
@@ -519,12 +558,6 @@ extern "C" {
     pub fn boolector_delete(btor: *mut Btor);
 }
 extern "C" {
-    pub fn boolector_push(btor: *mut Btor, level: u32);
-}
-extern "C" {
-    pub fn boolector_pop(btor: *mut Btor, level: u32);
-}
-extern "C" {
     pub fn boolector_set_term(
         btor: *mut Btor,
         fun: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> i32>,
@@ -533,6 +566,11 @@ extern "C" {
 }
 extern "C" {
     pub fn boolector_terminate(btor: *mut Btor) -> i32;
+}
+extern "C" {
+    pub fn boolector_set_abort(
+        fun: ::std::option::Option<unsafe extern "C" fn(msg: *const ::std::os::raw::c_char)>,
+    );
 }
 extern "C" {
     pub fn boolector_set_msg_prefix(btor: *mut Btor, prefix: *const ::std::os::raw::c_char);
@@ -554,6 +592,12 @@ extern "C" {
 }
 extern "C" {
     pub fn boolector_get_trapi(btor: *mut Btor) -> *mut FILE;
+}
+extern "C" {
+    pub fn boolector_push(btor: *mut Btor, level: u32);
+}
+extern "C" {
+    pub fn boolector_pop(btor: *mut Btor, level: u32);
 }
 extern "C" {
     pub fn boolector_assert(btor: *mut Btor, node: *mut BoolectorNode);
@@ -635,6 +679,55 @@ extern "C" {
     pub fn boolector_release_all(btor: *mut Btor);
 }
 extern "C" {
+    pub fn boolector_true(btor: *mut Btor) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_false(btor: *mut Btor) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_implies(
+        btor: *mut Btor,
+        n0: *mut BoolectorNode,
+        n1: *mut BoolectorNode,
+    ) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_iff(
+        btor: *mut Btor,
+        n0: *mut BoolectorNode,
+        n1: *mut BoolectorNode,
+    ) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_eq(
+        btor: *mut Btor,
+        n0: *mut BoolectorNode,
+        n1: *mut BoolectorNode,
+    ) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_ne(
+        btor: *mut Btor,
+        n0: *mut BoolectorNode,
+        n1: *mut BoolectorNode,
+    ) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_is_bv_const_zero(btor: *mut Btor, node: *mut BoolectorNode) -> bool;
+}
+extern "C" {
+    pub fn boolector_is_bv_const_one(btor: *mut Btor, node: *mut BoolectorNode) -> bool;
+}
+extern "C" {
+    pub fn boolector_is_bv_const_ones(btor: *mut Btor, node: *mut BoolectorNode) -> bool;
+}
+extern "C" {
+    pub fn boolector_is_bv_const_max_signed(btor: *mut Btor, node: *mut BoolectorNode) -> bool;
+}
+extern "C" {
+    pub fn boolector_is_bv_const_min_signed(btor: *mut Btor, node: *mut BoolectorNode) -> bool;
+}
+extern "C" {
     pub fn boolector_const(
         btor: *mut Btor,
         bits: *const ::std::os::raw::c_char,
@@ -658,16 +751,16 @@ extern "C" {
     pub fn boolector_zero(btor: *mut Btor, sort: BoolectorSort) -> *mut BoolectorNode;
 }
 extern "C" {
-    pub fn boolector_false(btor: *mut Btor) -> *mut BoolectorNode;
-}
-extern "C" {
     pub fn boolector_ones(btor: *mut Btor, sort: BoolectorSort) -> *mut BoolectorNode;
 }
 extern "C" {
-    pub fn boolector_true(btor: *mut Btor) -> *mut BoolectorNode;
+    pub fn boolector_one(btor: *mut Btor, sort: BoolectorSort) -> *mut BoolectorNode;
 }
 extern "C" {
-    pub fn boolector_one(btor: *mut Btor, sort: BoolectorSort) -> *mut BoolectorNode;
+    pub fn boolector_min_signed(btor: *mut Btor, sort: BoolectorSort) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_max_signed(btor: *mut Btor, sort: BoolectorSort) -> *mut BoolectorNode;
 }
 extern "C" {
     pub fn boolector_unsigned_int(
@@ -738,20 +831,6 @@ extern "C" {
     ) -> *mut BoolectorNode;
 }
 extern "C" {
-    pub fn boolector_implies(
-        btor: *mut Btor,
-        n0: *mut BoolectorNode,
-        n1: *mut BoolectorNode,
-    ) -> *mut BoolectorNode;
-}
-extern "C" {
-    pub fn boolector_iff(
-        btor: *mut Btor,
-        n0: *mut BoolectorNode,
-        n1: *mut BoolectorNode,
-    ) -> *mut BoolectorNode;
-}
-extern "C" {
     pub fn boolector_xor(
         btor: *mut Btor,
         n0: *mut BoolectorNode,
@@ -788,20 +867,6 @@ extern "C" {
 }
 extern "C" {
     pub fn boolector_nor(
-        btor: *mut Btor,
-        n0: *mut BoolectorNode,
-        n1: *mut BoolectorNode,
-    ) -> *mut BoolectorNode;
-}
-extern "C" {
-    pub fn boolector_eq(
-        btor: *mut Btor,
-        n0: *mut BoolectorNode,
-        n1: *mut BoolectorNode,
-    ) -> *mut BoolectorNode;
-}
-extern "C" {
-    pub fn boolector_ne(
         btor: *mut Btor,
         n0: *mut BoolectorNode,
         n1: *mut BoolectorNode,
@@ -1073,7 +1138,7 @@ extern "C" {
     pub fn boolector_forall(
         btor: *mut Btor,
         params: *mut *mut BoolectorNode,
-        paramc: ::std::os::raw::c_int,
+        paramc: u32,
         body: *mut BoolectorNode,
     ) -> *mut BoolectorNode;
 }
@@ -1081,7 +1146,7 @@ extern "C" {
     pub fn boolector_exists(
         btor: *mut Btor,
         param: *mut *mut BoolectorNode,
-        paramc: ::std::os::raw::c_int,
+        paramc: u32,
         body: *mut BoolectorNode,
     ) -> *mut BoolectorNode;
 }
@@ -1089,7 +1154,7 @@ extern "C" {
     pub fn boolector_get_btor(node: *mut BoolectorNode) -> *mut Btor;
 }
 extern "C" {
-    pub fn boolector_get_id(btor: *mut Btor, node: *mut BoolectorNode) -> i32;
+    pub fn boolector_get_node_id(btor: *mut Btor, node: *mut BoolectorNode) -> i32;
 }
 extern "C" {
     pub fn boolector_get_sort(btor: *mut Btor, node: *const BoolectorNode) -> BoolectorSort;
@@ -1253,6 +1318,9 @@ extern "C" {
     ) -> BoolectorSort;
 }
 extern "C" {
+    pub fn boolector_copy_sort(btor: *mut Btor, sort: BoolectorSort) -> BoolectorSort;
+}
+extern "C" {
     pub fn boolector_release_sort(btor: *mut Btor, sort: BoolectorSort);
 }
 extern "C" {
@@ -1344,4 +1412,7 @@ extern "C" {
 }
 extern "C" {
     pub fn boolector_version(btor: *mut Btor) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn boolector_git_id(btor: *mut Btor) -> *const ::std::os::raw::c_char;
 }
