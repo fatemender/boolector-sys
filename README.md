@@ -2,8 +2,8 @@
 
 # boolector-sys
 
-This Rust crate provides low-level bindings for the [Boolector] SMT solver.  It
-has the following limitations:
+This Rust crate provides low-level bindings for the [Boolector] SMT solver,
+version 3.0.0.  It has the following limitations:
 
 * the `boolector` library must be available on the system, no attempt is made to
   build it from source;
@@ -14,12 +14,12 @@ has the following limitations:
 
 ## Installation
 
-First, compile and install the `boolector` shared library.  Then add this crate
-to your `Cargo.toml`:
+First, compile `boolector` as a shared library and install it.  Then add this
+crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.1"
+boolector-sys = "0.2"
 ```
 
 ## License
