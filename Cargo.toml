@@ -1,5 +1,6 @@
 [package]
 authors                                 = [ "Mikhail Solovev <icee@icee.ru>" ]
+build                                   = "build.rs"
 categories                              = [ "external-ffi-bindings" ]
 description                             = "Low-level bindings for the Boolector SMT solver"
 documentation                           = "https://docs.rs/boolector-sys"
