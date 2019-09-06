@@ -12,3 +12,6 @@ name                                    = "boolector-sys"
 readme                                  = "README.md"
 repository                              = "https://github.com/fatemender/boolector-sys"
 version                                 = "0.2.0"
+
+[dependencies]
+libc = "0.2"
