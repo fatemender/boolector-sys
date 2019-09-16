@@ -397,6 +397,14 @@ extern "C" {
     ) -> *mut BoolectorNode;
 }
 extern "C" {
+    pub fn boolector_const_array(
+        btor: *mut Btor,
+        sort: BoolectorSort,
+        value: *mut BoolectorNode,
+        symbol: *const ::std::os::raw::c_char,
+    ) -> *mut BoolectorNode;
+}
+extern "C" {
     pub fn boolector_uf(
         btor: *mut Btor,
         sort: BoolectorSort,
@@ -948,6 +956,9 @@ extern "C" {
 }
 extern "C" {
     pub fn boolector_is_fun_sort(btor: *mut Btor, sort: BoolectorSort) -> bool;
+}
+extern "C" {
+    pub fn boolector_bitvec_sort_get_width(btor: *mut Btor, sort: BoolectorSort) -> u32;
 }
 extern "C" {
     pub fn boolector_parse(
