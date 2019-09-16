@@ -19,7 +19,7 @@ crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.2"
+boolector-sys = "0.3"
 ```
 
 ## License
