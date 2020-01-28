@@ -19,6 +19,7 @@ bindgen \
     --blacklist-type '^BtorOptHelp$' \
     --no-recursive-whitelist \
     --no-doc-comments \
+    --no-prepend-enum-name \
     ../boolector/src/btoropt.h \
     -- \
     -I../boolector/src
