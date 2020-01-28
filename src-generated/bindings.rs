@@ -44,7 +44,7 @@ pub const BtorOption_BTOR_OPT_LOGLEVEL: BtorOption = 13;
 pub const BtorOption_BTOR_OPT_REWRITE_LEVEL: BtorOption = 14;
 pub const BtorOption_BTOR_OPT_SKELETON_PREPROC: BtorOption = 15;
 pub const BtorOption_BTOR_OPT_ACKERMANN: BtorOption = 16;
-pub const BtorOption_BTOR_OPT_BETA_REDUCE_ALL: BtorOption = 17;
+pub const BtorOption_BTOR_OPT_BETA_REDUCE: BtorOption = 17;
 pub const BtorOption_BTOR_OPT_ELIMINATE_SLICES: BtorOption = 18;
 pub const BtorOption_BTOR_OPT_VAR_SUBST: BtorOption = 19;
 pub const BtorOption_BTOR_OPT_UCOPT: BtorOption = 20;
@@ -102,23 +102,30 @@ pub const BtorOption_BTOR_OPT_QUANT_SYNTH_QI: BtorOption = 71;
 pub const BtorOption_BTOR_OPT_QUANT_DER: BtorOption = 72;
 pub const BtorOption_BTOR_OPT_QUANT_CER: BtorOption = 73;
 pub const BtorOption_BTOR_OPT_QUANT_MINISCOPE: BtorOption = 74;
-pub const BtorOption_BTOR_OPT_DEFAULT_TO_CADICAL: BtorOption = 75;
-pub const BtorOption_BTOR_OPT_SORT_EXP: BtorOption = 76;
-pub const BtorOption_BTOR_OPT_SORT_AIG: BtorOption = 77;
-pub const BtorOption_BTOR_OPT_SORT_AIGVEC: BtorOption = 78;
-pub const BtorOption_BTOR_OPT_AUTO_CLEANUP_INTERNAL: BtorOption = 79;
-pub const BtorOption_BTOR_OPT_SIMPLIFY_CONSTRAINTS: BtorOption = 80;
-pub const BtorOption_BTOR_OPT_CHK_FAILED_ASSUMPTIONS: BtorOption = 81;
-pub const BtorOption_BTOR_OPT_CHK_MODEL: BtorOption = 82;
-pub const BtorOption_BTOR_OPT_CHK_UNCONSTRAINED: BtorOption = 83;
-pub const BtorOption_BTOR_OPT_PARSE_INTERACTIVE: BtorOption = 84;
-pub const BtorOption_BTOR_OPT_SAT_ENGINE_LGL_FORK: BtorOption = 85;
-pub const BtorOption_BTOR_OPT_INCREMENTAL_RW: BtorOption = 86;
-pub const BtorOption_BTOR_OPT_DECLSORT_BV_WIDTH: BtorOption = 87;
-pub const BtorOption_BTOR_OPT_QUANT_SYNTH_ITE_COMPLETE: BtorOption = 88;
-pub const BtorOption_BTOR_OPT_QUANT_FIXSYNTH: BtorOption = 89;
-pub const BtorOption_BTOR_OPT_NUM_OPTS: BtorOption = 90;
+pub const BtorOption_BTOR_OPT_SORT_EXP: BtorOption = 75;
+pub const BtorOption_BTOR_OPT_SORT_AIG: BtorOption = 76;
+pub const BtorOption_BTOR_OPT_SORT_AIGVEC: BtorOption = 77;
+pub const BtorOption_BTOR_OPT_AUTO_CLEANUP_INTERNAL: BtorOption = 78;
+pub const BtorOption_BTOR_OPT_SIMPLIFY_CONSTRAINTS: BtorOption = 79;
+pub const BtorOption_BTOR_OPT_CHK_FAILED_ASSUMPTIONS: BtorOption = 80;
+pub const BtorOption_BTOR_OPT_CHK_MODEL: BtorOption = 81;
+pub const BtorOption_BTOR_OPT_CHK_UNCONSTRAINED: BtorOption = 82;
+pub const BtorOption_BTOR_OPT_PARSE_INTERACTIVE: BtorOption = 83;
+pub const BtorOption_BTOR_OPT_SAT_ENGINE_LGL_FORK: BtorOption = 84;
+pub const BtorOption_BTOR_OPT_SAT_ENGINE_CADICAL_FREEZE: BtorOption = 85;
+pub const BtorOption_BTOR_OPT_SAT_ENGINE_N_THREADS: BtorOption = 86;
+pub const BtorOption_BTOR_OPT_SIMP_NORMAMLIZE_ADDERS: BtorOption = 87;
+pub const BtorOption_BTOR_OPT_DECLSORT_BV_WIDTH: BtorOption = 88;
+pub const BtorOption_BTOR_OPT_QUANT_SYNTH_ITE_COMPLETE: BtorOption = 89;
+pub const BtorOption_BTOR_OPT_QUANT_FIXSYNTH: BtorOption = 90;
+pub const BtorOption_BTOR_OPT_RW_ZERO_LOWER_SLICE: BtorOption = 91;
+pub const BtorOption_BTOR_OPT_NONDESTR_SUBST: BtorOption = 92;
+pub const BtorOption_BTOR_OPT_NUM_OPTS: BtorOption = 93;
 pub type BtorOption = u32;
+pub const BtorOptBetaReduceMode_BTOR_BETA_REDUCE_NONE: BtorOptBetaReduceMode = 0;
+pub const BtorOptBetaReduceMode_BTOR_BETA_REDUCE_FUN: BtorOptBetaReduceMode = 1;
+pub const BtorOptBetaReduceMode_BTOR_BETA_REDUCE_ALL: BtorOptBetaReduceMode = 2;
+pub type BtorOptBetaReduceMode = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct BtorAbortCallback {
@@ -401,7 +408,6 @@ extern "C" {
         btor: *mut Btor,
         sort: BoolectorSort,
         value: *mut BoolectorNode,
-        symbol: *const ::std::os::raw::c_char,
     ) -> *mut BoolectorNode;
 }
 extern "C" {
@@ -622,6 +628,14 @@ extern "C" {
         n0: *mut BoolectorNode,
         n1: *mut BoolectorNode,
     ) -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_roli(btor: *mut Btor, n: *mut BoolectorNode, nbits: u32)
+        -> *mut BoolectorNode;
+}
+extern "C" {
+    pub fn boolector_rori(btor: *mut Btor, n: *mut BoolectorNode, nbits: u32)
+        -> *mut BoolectorNode;
 }
 extern "C" {
     pub fn boolector_sub(
@@ -968,6 +982,7 @@ extern "C" {
         outfile: *mut FILE,
         error_msg: *mut *mut ::std::os::raw::c_char,
         status: *mut i32,
+        parsed_smt2: *mut bool,
     ) -> i32;
 }
 extern "C" {
