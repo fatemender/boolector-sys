@@ -3,7 +3,7 @@
 # boolector-sys
 
 This Rust crate provides low-level bindings for the [Boolector] SMT solver,
-version 3.1.0.  It has the following limitations:
+version 3.2.1.  It has the following limitations:
 
 * the `boolector` library must be available on the system, no attempt is made to
   build it from source;
@@ -19,7 +19,7 @@ crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.4"
+boolector-sys = "0.5"
 ```
 
 ## License
