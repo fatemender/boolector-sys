@@ -3,24 +3,38 @@
 # boolector-sys
 
 This Rust crate provides low-level bindings for the [Boolector] SMT solver,
-version 3.2.1.  It has the following limitations:
-
-* the `boolector` library must be available on the system, no attempt is made to
-  build it from source;
-* the `boolector` library must be a shared library, otherwise its dependencies
-  on the SAT solvers and `btor2parser` will not be satisfied.
+version 3.2.1.
 
 [Boolector]: https://boolector.github.io/
 
 ## Installation
 
-First, compile `boolector` as a shared library and install it.  Then add this
-crate to your `Cargo.toml`:
+### Using shared `boolector` library
+
+Compile `boolector` as a shared library and install it.  Then add this crate
+to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.5"
+boolector-sys = "0.6"
 ```
+
+### Using vendored static `boolector` library
+
+This is possible on UNIX-like targets only.  Add this crate to your `Cargo.toml`
+with the `vendor-lgl` feature enabled:
+
+```toml
+[dependencies]
+boolector-sys = { version = "0.6", features = ["vendor-lgl"] }
+```
+
+Enabling `vendor-lgl` will automatically build a static `boolector` library and
+link against it.  Currently this uses the Lingeling SAT solver.
+
+In order for the build to succeed, you'll need to install some tools on your
+build host; for a Debian-based distribution `build-essential`, `cmake`, and `curl`
+should be sufficient.
 
 ## License
 
