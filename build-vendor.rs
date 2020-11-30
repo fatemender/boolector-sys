@@ -6,7 +6,7 @@ use std::{
 };
 
 pub fn source_dir() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap().join("boolector")
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("boolector")
 }
 
 pub struct Build {
