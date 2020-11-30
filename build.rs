@@ -1,10 +1,11 @@
+#[cfg(feature = "vendor-lgl")]
+include!("build-vendor.rs");
+
 fn main() {
     #[cfg(feature = "vendor-lgl")]
     {
         if std::env::var("BOOLECTOR_NO_VENDOR").map_or(true, |s| s == "0") {
-            let boolector = boolector_build::Build::new()
-                .prerequisites()
-                .build();
+            let boolector = Build::new().prerequisites().build();
 
             println!("cargo:vendored=1");
             println!("cargo:root={}", boolector.lib_dir().parent().unwrap().display());
