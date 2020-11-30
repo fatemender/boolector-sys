@@ -5,8 +5,12 @@ use std::{
     process::Command,
 };
 
+pub fn repo_dir() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).to_path_buf()
+}
+
 pub fn source_dir() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).join("boolector")
+    repo_dir().join("boolector")
 }
 
 pub struct Build {
@@ -27,11 +31,21 @@ impl Build {
     }
 
     pub fn prerequisites(&mut self) -> &mut Self {
+        self.run_command(
+            Command::new("git")
+                .arg("submodule")
+                .arg("update")
+                .arg("--init")
+                .current_dir(&repo_dir()),
+            "Clone Boolector Sources",
+        );
+
         // TODO: Move everything to out_dir
 
         if !source_dir().join("deps/install/lib/liblgl.a").exists() {
             self.run_command(
-                Command::new("./contrib/setup-lingeling.sh").current_dir(&source_dir()),
+                Command::new(source_dir().join("contrib/setup-lingeling.sh"))
+                    .current_dir(&source_dir()),
                 "Setup Lingeling",
             );
         }
@@ -55,7 +69,8 @@ impl Build {
             .exists()
         {
             self.run_command(
-                Command::new("./contrib/setup-btor2tools.sh").current_dir(&source_dir()),
+                Command::new(source_dir().join("contrib/setup-btor2tools.sh"))
+                    .current_dir(&source_dir()),
                 "Setup btor2tools",
             );
         }
