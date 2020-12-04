@@ -31,7 +31,10 @@ impl Build {
 
         if !source_dir().join("deps/install/lib/liblgl.a").exists() {
             self.run_command(
-                Command::new("./contrib/setup-lingeling.sh").current_dir(&source_dir()),
+                Command::new("/usr/bin/env")
+                    .arg("bash")
+                    .arg(source_dir().join("contrib/setup-lingeling.sh"))
+                    .current_dir(&source_dir()),
                 "Setup Lingeling",
             );
         }
@@ -50,12 +53,12 @@ impl Build {
             source_dir().join("deps/install/lib").display()
         );
 
-        if !source_dir()
-            .join("deps/install/lib/libbtor2parser.a")
-            .exists()
-        {
+        if !source_dir().join("deps/install/lib/libbtor2parser.a").exists() {
             self.run_command(
-                Command::new("./contrib/setup-btor2tools.sh").current_dir(&source_dir()),
+                Command::new("/usr/bin/env")
+                    .arg("bash")
+                    .arg(source_dir().join("contrib/setup-btor2tools.sh"))
+                    .current_dir(&source_dir()),
                 "Setup btor2tools",
             );
         }

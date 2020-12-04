@@ -16,7 +16,7 @@ to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.6"
+boolector-sys = "0.6.1"
 ```
 
 ### Using vendored static `boolector` library
@@ -26,7 +26,7 @@ with the `vendor-lgl` feature enabled:
 
 ```toml
 [dependencies]
-boolector-sys = { version = "0.6", features = ["vendor-lgl"] }
+boolector-sys = { version = "0.6.1", features = ["vendor-lgl"] }
 ```
 
 Enabling `vendor-lgl` will automatically build a static `boolector` library and

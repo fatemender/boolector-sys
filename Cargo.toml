@@ -12,7 +12,7 @@ links                                   = "boolector"
 name                                    = "boolector-sys"
 readme                                  = "README.md"
 repository                              = "https://github.com/fatemender/boolector-sys"
-version                                 = "0.6.0"
+version                                 = "0.6.1"
 
 [features]
 vendor-lgl                              = ["cc", "cmake"]
