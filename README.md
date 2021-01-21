@@ -16,7 +16,7 @@ to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.6.1"
+boolector-sys = "0.6.2"
 ```
 
 ### Using vendored static `boolector` library
@@ -26,15 +26,15 @@ with the `vendor-lgl` feature enabled:
 
 ```toml
 [dependencies]
-boolector-sys = { version = "0.6.1", features = ["vendor-lgl"] }
+boolector-sys = { version = "0.6.2", features = ["vendor-lgl"] }
 ```
 
 Enabling `vendor-lgl` will automatically build a static `boolector` library and
 link against it.  Currently this uses the Lingeling SAT solver.
 
 In order for the build to succeed, you'll need to install some tools on your
-build host; for a Debian-based distribution `build-essential`, `cmake`, and `curl`
-should be sufficient.
+build host; for a Debian-based distribution `build-essential`, `cmake`, `curl`,
+and `git` should be sufficient.
 
 ## License
 
