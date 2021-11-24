@@ -3,7 +3,7 @@
 # boolector-sys
 
 This Rust crate provides low-level bindings for the [Boolector] SMT solver,
-version 3.2.1.
+version 3.2.2.
 
 [Boolector]: https://boolector.github.io/
 
@@ -16,7 +16,7 @@ to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.6.3"
+boolector-sys = "0.7.0"
 ```
 
 ### Using vendored static `boolector` library
@@ -26,7 +26,7 @@ with the `vendor-lgl` feature enabled:
 
 ```toml
 [dependencies]
-boolector-sys = { version = "0.6.3", features = ["vendor-lgl"] }
+boolector-sys = { version = "0.7.0", features = ["vendor-lgl"] }
 ```
 
 Enabling `vendor-lgl` will automatically build a static `boolector` library and

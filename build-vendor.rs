@@ -78,7 +78,10 @@ impl Build {
     pub fn build(&mut self) -> Artifacts {
         // TODO: Unfortunately BUILDDIR is not overwriteable either implement
         // whole `Configure.sh` or find out how to overwrite `$BUILDDIR`
-        let target_dir = Config::new(&self.out_dir).build();
+        let target_dir = Config::new(&self.out_dir)
+            .profile("Release")
+            .target("boolector")
+            .build();
 
         Artifacts {
             lib_dir: target_dir.join("lib"),
