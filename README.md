@@ -1,4 +1,5 @@
 [![crates.io](https://img.shields.io/crates/v/boolector-sys.svg)](https://crates.io/crates/boolector-sys)
+[![docs.rs](https://img.shields.io/docsrs/boolector-sys)](https://docs.rs/boolector-sys)
 
 # boolector-sys
 
@@ -16,7 +17,7 @@ to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-boolector-sys = "0.7.1"
+boolector-sys = "0.7.2"
 ```
 
 ### Using vendored static `boolector` library
@@ -26,7 +27,7 @@ with the `vendor-lgl` feature enabled:
 
 ```toml
 [dependencies]
-boolector-sys = { version = "0.7.1", features = ["vendor-lgl"] }
+boolector-sys = { version = "0.7.2", features = ["vendor-lgl"] }
 ```
 
 Enabling `vendor-lgl` will automatically build a static `boolector` library and

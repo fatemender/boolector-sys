@@ -80,7 +80,6 @@ impl Build {
         // whole `Configure.sh` or find out how to overwrite `$BUILDDIR`
         let target_dir = Config::new(&self.out_dir)
             .profile("Release")
-            .build_target("boolector")
             .build();
 
         Artifacts {
